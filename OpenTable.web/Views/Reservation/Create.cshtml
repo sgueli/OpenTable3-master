@@ -1,0 +1,53 @@
+﻿@model OpenTable.web.Models.ViewModels.ReservationCreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Reservation</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Reservation.Date)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Reservation.Date)
+            @Html.ValidationMessageFor(model => model.Reservation.Date)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Reservation.SpecialRequest)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Reservation.SpecialRequest)
+            @Html.ValidationMessageFor(model => model.Reservation.SpecialRequest)
+        </div>
+
+            @Html.HiddenFor(model => model.Reservation.UserId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Reservation.RestaurantId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Reservation.RestaurantId, Model.Restaurants.Select(r=>new SelectListItem{Text = r.Name, Value = r.Id.ToString()}))
+
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

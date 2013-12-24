@@ -1,0 +1,43 @@
+﻿@model OpenTable.web.Models.ViewModels.UserEditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>User</legend>
+
+        @Html.HiddenFor(model => model.User.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.User.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.User.Name)
+            @Html.ValidationMessageFor(model => model.User.Name)
+        </div>
+
+        <h3>Restaurants</h3>
+        <ul>
+            @for (var i = 0; i < Model.SelectedRestaurants.Count; i++)
+            {
+                <li>
+                    @Html.CheckBoxFor(m=>m.SelectedRestaurants[i].Selected)
+                    @Html.LabelFor(m=>m.SelectedRestaurants[i].Selected, Model.SelectedRestaurants[i].Restaurant.Name)
+                    @Html.HiddenFor(m=>m.SelectedRestaurants[i].Restaurant.Id)
+                </li>
+            }
+        </ul>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
